@@ -5,24 +5,13 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class Main {
-    //for our own examples
-    private static final String folder = "src\\files";
-
-    //for exercise
-    private static final String exerciseFolder = "src\\files\\exercise";
-
-
-    private static final File textFile = new File(folder + "\\text.txt");
-    private static final File decTable = new File(folder + "\\dec_tab.txt");
-    private static final File output = new File(folder + "\\output.dat");
-
 
     public static void main(String[] args) throws IOException {
         encodeMessage("src\\files");
         decodeMessage("src\\files\\exercise");
     }
 
-
+    //calculates appearances of each character in text.txt in the given path
     private static Map<Integer, Integer> calculateFrequency(String path) throws IOException {
         Map<Integer, Integer> freq = new HashMap<>();
 
@@ -134,6 +123,7 @@ public class Main {
         }
     }
 
+    //encodes text.txt in the given path
     public static void encodeMessage(String path) {
         try {
             Node root = createTree(path);
@@ -146,7 +136,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-
+    // reads String from output.dat in the given path and get rid of redundant 0's and 1
     private static String readEncodedText(String path) throws IOException {
         File file = new File(path + "\\output.dat");
         byte[] bFile = new byte[(int) file.length()];
@@ -165,7 +155,7 @@ public class Main {
         encodedBitstring = encodedBitstring.substring(0, lastOne);
         return encodedBitstring;
     }
-
+    // reads dec_tab.txt in the given path and return huffman table
     private static Map<Integer, String> readHuffmanTable(String path) throws IOException {
         Map<Integer, String> huffman = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path + "\\dec_tab.txt"));) {
